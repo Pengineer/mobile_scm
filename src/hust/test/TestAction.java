@@ -6,6 +6,8 @@ public class TestAction {
 	
 	public String execute() {
 		System.out.println(username);
+		
+		username = "welcome " + username;
 		return "res";
 	}
 

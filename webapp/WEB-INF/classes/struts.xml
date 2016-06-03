@@ -4,6 +4,10 @@
       "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <!-- 当struts的action根据属性向spring容器获取其属性对象时，需要指定匹配方式，默认就是byName。
+    	   这种整合方式下action类型的bean就不需要交给spring来管理，由struts执行管理，此时action标签的class属性需要写类的全限定名。 -->
+	<!-- <constant name="struts.objectFactory.spring.autowire" value="byName"></constant> -->
+
 	<package name="default" namespace="/" extends="struts-default">
 		<action name="test" class="hust.test.TestAction" method="execute">
 			<result name="res">jsp/Test.jsp</result>
