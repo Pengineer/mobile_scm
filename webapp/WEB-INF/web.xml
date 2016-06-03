@@ -5,27 +5,59 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	
+	<!-- 系统全局变量定义 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
 		<!-- <param-value>classpath:applicationContext.xml</param-value> -->
 	</context-param>
 	
+	<context-param>
+		<param-name>sysname</param-name>
+		<param-value>手机进销存管理系统</param-value>
+	</context-param>
+	
+	<!-- 定义各个filter，按顺序初始化。过滤器的作用主要是过滤字符编码，做一些业务逻辑判断等-->
+	<filter><!-- spring的字符集编码配置 -->
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param><!--定义request编码-->
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+ 		</init-param>
+		<init-param><!--默认false，为true时response编码也被定义为与request一致-->
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
 	</filter>
 	
+	<!-- filter具体使用场景 -->
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
 	
+	<!-- spring监听器 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<listener>
+		<listener-class>hust.tool.listener.SysInit</listener-class>
+	</listener>
 	
-
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
