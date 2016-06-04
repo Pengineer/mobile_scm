@@ -82,14 +82,16 @@
     	}
     </style>
     
-    ****TODO
-    <script type="text/javascript" ></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/user_login.js"></script>
   </head>
   
   <body>
     <div class="container">
     	<div class="leftLogo"></div>
     	<div class="loginFormDiv">
+    		<!-- 由于这里的提交采用了ajax方式，因此拦截了form表单本身的提交 -->
     		<form name="frm1" onsubmit="return false;">
     			<!-- 相对本div：表格宽度、表格边框宽度、表格中单元格之间间距、单元格内容与单元格间距 -->
     			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="loginTable">
@@ -112,7 +114,7 @@
     				</tr>
     				<tr>
     					<td width="100" height="35" align="right" valign="middle">验证码：</td>
-    					<td width="140" align="left" valign="middle"><input iscode="true" type="text" name="vcode" class="txt" maxLength="4" /></td>
+    					<td width="140" align="left" valign="middle"><input type="text" name="vcode" class="txt" maxLength="4" /></td>
     				</tr>
     			</table>
     		</form>
@@ -122,10 +124,10 @@
     <div class="validateCodeDiv" style="cursor:pointer;display:none" onclick="changeCode();">
     	<table width="100%" border="0" cellspacing="0" cellpadding="0">
     		<tr>
-    			<td height="60"><img src="servlet/getValidateCode" id="imgVcode" iscode="true"/></td>
+    			<td height="60"><img src="servlet/getValidateCode" id="imgVcode" /></td>
     		</tr>
     		<tr>
-    			<td iscode="true" align="center" valign="middle" height="20" style="color:blue">若看不清，点图片换一张</td>
+    			<td align="center" valign="middle" height="20" style="color:blue">若看不清，点图片换一张</td>
     		</tr>
     	</table>
     </div>
