@@ -64,3 +64,22 @@ function getFormPara(oForm) {
 	}
 	return ret;
 }
+
+var Browser = {
+		isIE: function(version){
+			if (navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+				return false;
+			} else {
+				if (version) {
+					var regexpr = new RegExp("msie\\s*" + version, "g");
+					if (navigator.userAgent.toLowerCase().match(regexpr)) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return true;
+				}
+			}
+		}
+	};
