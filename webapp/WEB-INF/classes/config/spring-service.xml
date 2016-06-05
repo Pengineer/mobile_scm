@@ -5,10 +5,6 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- 首页加载 -->
-	<bean id="toIndexAction" class="hust.action.ToIndexAction" scope="prototype" />
-	<bean id="userLoginAction" class="hust.action.UserLoginAction" scope="prototype" />
-
-	<bean id="homeAction" class="hust.action.HomeAction" scope="prototype" />
+	<bean id="userLoginService" class="hust.service.impl.UserLoginServiceImpl" />
 
 </beans>

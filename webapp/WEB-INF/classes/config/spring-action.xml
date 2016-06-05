@@ -6,6 +6,9 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- 首页加载 -->
-	<bean id="toIndexAction" class="hust.action.toIndexAction" scope="prototype" />
+	<bean id="toIndexAction" class="hust.action.ToIndexAction" scope="prototype" />
+	<bean id="userLoginAction" class="hust.action.UserLoginAction" scope="prototype" />
+
+	<bean id="homeAction" class="hust.action.HomeAction" scope="prototype" />
 
 </beans>

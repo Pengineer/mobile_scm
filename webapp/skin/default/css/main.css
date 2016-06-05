@@ -1,0 +1,28 @@
+body {
+	font-size: 12px;
+	margin: 0;
+	overflow: hidden;
+	background-color: #c3daf9;
+	-moz-user-select: none;
+}
+
+.mask {
+	background-color: black;
+	position: absolute;
+	z-index: 30;
+	width: 100%;
+	height: 100%;
+	display: none;
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+
+.menu {
+	width: 100%;
+	height: 31px;
+	background-image: : url(../images/menu_back.gif);
+	margin: 0;
+	padding: 0;
+	position: relative;
+	z-index: 50;
+}

@@ -24,3 +24,43 @@ function getAbsPosition(o) {
 		top: top
 	};
 }
+
+/*
+ * 动态扩展String方法，增加trim方法
+ */
+String.prototype.trim = function() {
+	return this.replace(/(^\s*) | (\s*$)/, "");
+};
+
+/**
+ * 将表单中各域的值自动封装成参数对象
+ * @param oForm 表单对象
+ */
+function getFormPara(oForm) {
+	oForm = $(oForm)[0];
+	var len = oForm.elements.length;
+	var ret = {};
+	for (var i = 0; i < len; i++) {
+		var oEle = oForm.elements[i];
+		if (oEle.type === "radio") { // 单选框单独处理
+			if (oEle.checked) {      // 如果被选中
+				ret[oEle.name] = oEle.value.trim();
+			}
+		} else if (oEle.type === "checkbox") { // 多选框
+			var curVal = ret[oEle.name];
+			if (curVal === undefined) {        // 如果数组中不存在
+				ret[oEle.name] = [];           // 为该参数对象创建一个数组
+				if (oEle.checked) {
+					ret[oEle.name].push(oEle.value.trim());
+				} 
+			} else {
+				if (oEle.checked) {
+					ret[oEle.name].push(oEle.value.trim());
+				} 
+			}
+		} else {
+			ret[oEle.name] = oEle.value.trim();
+		}
+	}
+	return ret;
+}

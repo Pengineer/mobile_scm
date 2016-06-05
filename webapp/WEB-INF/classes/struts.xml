@@ -9,5 +9,6 @@
 	<!-- <constant name="struts.objectFactory.spring.autowire" value="byName"></constant> -->
 
 	<include file="config/struts-ToIndex.xml"/>
+	<include file="config/struts-Login.xml"/>
 	
 </struts>

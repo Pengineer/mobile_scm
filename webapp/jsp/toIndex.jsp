@@ -124,7 +124,7 @@
     <div class="validateCodeDiv" style="cursor:pointer;display:none" onclick="changeCode();">
     	<table width="100%" border="0" cellspacing="0" cellpadding="0">
     		<tr>
-    			<td height="60"><img src="servlet/getValidateCode" id="imgVcode" /></td>
+    			<td height="60"><img src="servlet/getVcode" id="imgVcode" /></td>
     		</tr>
     		<tr>
     			<td align="center" valign="middle" height="20" style="color:blue">若看不清，点图片换一张</td>

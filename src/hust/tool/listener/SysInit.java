@@ -21,6 +21,7 @@ public class SysInit implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		ServletContext application = event.getServletContext();
 		application.setAttribute("sysname", application.getInitParameter("sysname"));
+		application.setAttribute("ctx", application.getContextPath()); // 格式：/应用名
 	}
 
 }

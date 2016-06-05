@@ -46,7 +46,7 @@ public class ValidateCodeGenerator {
 	/*
 	 * 获取验证码图片
 	 */
-	public void drawCode() throws IOException {
+	public String drawCode() throws IOException {
 		BufferedImage codeImg = new BufferedImage(this.imgWidth, this.imgHeight, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = codeImg.createGraphics();
 		g.setColor(new Color(245, 245, 245));
@@ -66,6 +66,8 @@ public class ValidateCodeGenerator {
 		g.dispose();
 		
 		ImageIO.write(codeImg, "gif", os);
+		
+		return new String(codes);
 	}
 	
 	/*

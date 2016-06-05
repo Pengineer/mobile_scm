@@ -58,6 +58,16 @@
 		<listener-class>hust.tool.listener.SysInit</listener-class>
 	</listener>
 	
+	<servlet>
+		<servlet-name>GetValidateCodeServlet</servlet-name>
+		<servlet-class>hust.servlet.GetValidateCodeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GetValidateCodeServlet</servlet-name>
+		<url-pattern>/servlet/getVcode</url-pattern>
+	</servlet-mapping>
+	
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
