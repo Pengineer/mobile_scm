@@ -7,11 +7,6 @@
   </head>
   
   <body>
-	<select>
-		<option>kdfjkdsjf klsd</option>
-		<option>kdfjkdsjf klsd</option>
-		<option>kdfjkdsjf klsd</option>
- 	</select>
 	<div class="logo"></div>
 	<div class="message">
 	</div>

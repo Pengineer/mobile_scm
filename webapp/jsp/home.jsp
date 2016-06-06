@@ -11,9 +11,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
 	<title>${sysname }</title>
 	<link rel="stylesheet" href="${ctx}/skin/${skin}/css/main.css" type="text/css">
-	<script type="text/javascript" src="${ctx}/js/jquery.js"></script>
-	<script type="text/javascript" src="${ctx}/js/common.js"></script>
-	<script type="text/javascript" src="${ctx}/js/home2.js"></script>
+	<script type="text/javascript" src="${ctx}/js/common/jquery.js"></script>
+	<script type="text/javascript" src="${ctx}/js/common/common.js"></script>
+	<script type="text/javascript" src="${ctx}/js/home.js"></script>
   </head>
 
   <!-- onselectstart表示鼠标无法右键；oncontextmenu设置鼠标无法右键。由于这两个参数不支持火狐浏览器，因此在css样式中为火狐浏览器做单独设置 -->

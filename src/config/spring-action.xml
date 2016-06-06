@@ -10,5 +10,6 @@
 	<bean id="userLoginAction" class="hust.action.UserLoginAction" scope="prototype" />
 
 	<bean id="homeAction" class="hust.action.HomeAction" scope="prototype" />
+	<bean id="menuManagerAction" class="hust.dev.action.MenuManageAction" scope="prototype" />
 
 </beans>

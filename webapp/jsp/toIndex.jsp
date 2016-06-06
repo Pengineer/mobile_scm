@@ -82,8 +82,8 @@
     	}
     </style>
     
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/common/jquery.js"></script>
+    <script type="text/javascript" src="js/common/common.js"></script>
     <script type="text/javascript" src="js/user_login.js"></script>
   </head>
   

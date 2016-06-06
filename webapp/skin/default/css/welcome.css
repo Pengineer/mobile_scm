@@ -15,8 +15,8 @@ body {
 	position: absolute;
 	width: 736px;
 	height: 350px;
-	bottom: 40%;
-	left: 32%;
+	bottom: 25%;
+	left: 25%;
 	background-image: url(../images/welcome_messback.png);
 	background-repeat: no-repeat;
 }
