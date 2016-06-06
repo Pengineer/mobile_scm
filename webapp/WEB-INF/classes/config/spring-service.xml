@@ -7,4 +7,5 @@
 
 	<bean id="userLoginService" class="hust.service.impl.UserLoginServiceImpl" />
 
+	<bean id="menuManageService" class="hust.service.impl.MenuManageServiceImpl" />
 </beans>

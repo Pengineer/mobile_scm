@@ -11,9 +11,9 @@ $().ready(function(){
     });
     
     //加载树
-    $.getJSON("menuManage_menuTree.do", {
-        ts: new Date().getTime()
-    }, function(data){
+    $.getJSON("menuManage_menuTree.action", {
+        ts: new Date().getTime() // 避免浏览器缓存，保证获取最新数据
+    }, function(data){ // data为返回的json格式数据
     
         var treeData = [data.menuTree];
         
