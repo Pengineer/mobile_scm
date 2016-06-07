@@ -8,49 +8,44 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 
 //约定 namespace值是该实体类的全路径
 
 public class BaseDao<T> {
 	
-	@Autowired
 	private SqlSession sqlSession;
 	
 	public void add(T obj) {
-		this.sqlSession.insert(obj.getClass().getName() + ".insert", obj);
+		this.getSqlSession().insert(obj.getClass().getName() + ".insert", obj);
 	}
 	
-	public void delete(Class<T> clazz,String id) {
-		this.sqlSession.delete(clazz.getName() + ".delete", id);
+	public void delete(Class<T> clazz, String id) {
+		this.getSqlSession().delete(clazz.getName() + ".delete", id);
 	}
 
 	public void modify(T obj) {
-		this.sqlSession.update(obj.getClass().getName() + ".update", obj);
+		this.getSqlSession().update(obj.getClass().getName() + ".update", obj);
 	}
 	
 	/**
 	 * 根据Id查找
 	 */
 	public T getById(Class<T> clazz, String id) {
-		return this.sqlSession.selectOne(clazz.getName() + ".getById", id);
+		return this.getSqlSession().selectOne(clazz.getName() + ".getById", id);
 	}
 
 	/**
 	 * 根据指定的多个条件获取一条记录
 	 */
 	public T getByConditions(String sqlId, Map<String,Object> params) {
-		T obj = null;
-		obj = this.sqlSession.selectOne(sqlId, params);
-		return obj;
+		return this.getSqlSession().selectOne(sqlId, params);
 	}
 
 	/**
 	 * 根据指定的一个条件获取一条记录（前提是该条件在表中具有唯一性）
 	 */
 	public T getByUnique(String sqlId, Object param) {
-		T obj = this.sqlSession.selectOne(sqlId, param);
-		return obj;
+		return this.getSqlSession().selectOne(sqlId, param);
 	}
 
 	/**
@@ -65,9 +60,7 @@ public class BaseDao<T> {
 	 * 排序依然带着
 	 */
 	public List<T> list(String sqlId, Map<String,Object> params) {
-		List<T> list=null;
-		list = this.sqlSession.selectList(sqlId, params);
-		return list;
+		return this.getSqlSession().selectList(sqlId, params);
 	}
 
 	/**
@@ -93,16 +86,24 @@ public class BaseDao<T> {
 		params.put("order", order);
 		params.put("sort", sort);
 		//约定 namespace值是该实体类的全路径，并且所有的分页查询都是find
-		List<T> lists = this.sqlSession.selectList(sqlId, params);
+		List<T> lists = this.getSqlSession().selectList(sqlId, params);
 		
 		pages.setDatas(lists);
 		pages.setPageOffset(pageOffset);
 		pages.setPageSize(pageSize);
 		//获取当前条件下的所有记录数
 		//查询记录的命名是 XXX，那么约定记录条数命名是 XXX_count
-		int count = this.sqlSession.selectOne(sqlId+"_count", params);
+		int count = this.getSqlSession().selectOne(sqlId+"_count", params);
 		pages.setTotalRecord(count);
 		return pages;
+	}
+	
+	public SqlSession getSqlSession() {
+		return sqlSession;
+	}
+
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
 	}
 
 }

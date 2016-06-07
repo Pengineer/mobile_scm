@@ -8,7 +8,8 @@
 		
 	</typeAliases>
 	
-	<mappers>
-	
-	</mappers>
+	<!-- <mappers>
+		<mapper resource="hust.model.MenuMapper.xml"/>
+		<mapper resource="hust.model.ActionMapper.xml"/>
+	</mappers> -->
 </configuration>

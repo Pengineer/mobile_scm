@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hust.model.Menu">
+	<resultMap type="hust.model.Menu" id="menuMapper">
+		<id property="id" column="c_id"/>
+		<result property="name" column="c_name"/>
+		<result property="type" column="c_type"/>
+		<result property="pid" column="c_parent_id"/>
+		<result property="order" column="c_order"/>
+		<result property="remark" column="c_remark"/>
+		<association property="action" resultMap="hust.model.Action.actionMapper" />
+	</resultMap>
+	
+	<select id="list" parameterType="map" resultMap="menuMapper">
+		select * from t_menu m
+		<where>
+			<if test="pid != null">and c_parent_id=#{pid}</if>
+			<if test="roleList != null">
+				and exists(select c_id from t_role_menu rm where rm.c_menu_id=m.c_id and rm.c_role_id in
+				<foreach collection="roleList" open="(" close=")" separator="," item="role">
+					#{role.id}
+				</foreach>
+				)
+			</if>
+		</where>
+	</select>
+
+</mapper>

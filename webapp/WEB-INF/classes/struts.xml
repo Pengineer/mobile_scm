@@ -10,6 +10,6 @@
 
 	<include file="config/struts-ToIndex.xml"/>
 	<include file="config/struts-Login.xml"/>
-	<include file="config/struts-dev.xml"/>
+	<include file="config/dev/struts-dev.xml"/>
 	
 </struts>
