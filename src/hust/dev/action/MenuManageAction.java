@@ -1,14 +1,15 @@
 package hust.dev.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import hust.action.BaseAction;
+import hust.model.Action;
 import hust.model.Menu;
-import hust.model.Role;
+import hust.model.MenuType;
+import hust.service.ActionService;
 import hust.service.MenuManageService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MenuManageAction extends BaseAction {
 
@@ -17,28 +18,137 @@ public class MenuManageAction extends BaseAction {
 	@Autowired
 	private MenuManageService menuManageService;
 	
+	@Autowired
+	private ActionService actionService;
 	
+	// 获取整个菜单列表
+	private Menu menuTree;
+	
+	// 封装前端穿过来的menu参数
+	private Menu menu;
+	
+	// 返回给前端的菜单详细信息
+	private Menu parentMenu;
+	private List<Menu> subMenuList;
+	private List<Action> normalActionList;
+	private List<Action> authorActionList;
+	private List<MenuType> menuTypeList;
 	
 	public String init() {
 		
-		return "menuManage";
+		return "managePage";
 	}
 	
-	//获取菜单数据
+	//获取所有菜单数据
 	public String menuTree() {
+		menuTree = generateRoot();
+		menuTree.setSubMenuList(menuManageService.getMenuTree(menuTree.getId(), null));
+		return "menuTree";
+	}
+	
+	public String menuDetail() {
+		List<Menu> menuList = null;
+		if (menu.getId().equals("root")) {
+			menu = generateRoot();
+		} else {
+			menuList = menuManageService.getMenu(menu);
+			if (menuList != null && menuList.size() == 1) {
+				menu = menuList.get(0);
+			}
+		}
+		Menu tmp = new Menu();
+		// 查询父菜单
+		if (menu.getPid() != null) {
+			if (menu.getPid().equals("root")) {
+				parentMenu =generateRoot();
+			} else {
+				tmp.setId(menu.getPid());
+				menuList = menuManageService.getMenu(tmp);
+				parentMenu = menuList.get(0);
+			}
+		}
+		// 查询子菜单
+		if (menu.getType() == Menu.MENUTYPE_PARENT) {
+			tmp.setId(null);
+			tmp.setPid(menu.getId());
+			subMenuList = menuManageService.getMenu(tmp);
+		}
+		// 查询动作
+		if (menu.getType() == Menu.MENUTYPE_NODE) {
+			Action paraAction = new Action();
+			paraAction.setMid(menu.getId());
+			paraAction.setType(Action.ACTIONTYPE_NORMAL);
+			normalActionList = actionService.getActions(paraAction);
+			
+			paraAction.setType(Action.ACTIONTYPE_AUTHOR);
+			authorActionList = actionService.getActions(paraAction);
+		}
+		return "menuDetail";
+	}
+	
+	// 添加子菜单
+	public String toAddSubMenu() {
+		List<Menu> retList = null;
+		if (menu.getId().equals("root")) {
+			menu = generateRoot();
+		} else {
+			retList = menuManageService.getMenu(menu);
+			if (retList != null && retList.size() == 1) {
+				menu = retList.get(0);
+			}
+		}
+	
+		menuTypeList = menuManageService.getMenuTypeList();
+		return "addMenuPage";
+	}
+	
+	public String addMenu() throws Exception {
+		menuManageService.addMenu(menu);
+		return "succ";
+	}
+	
+	private Menu generateRoot() {
 		Menu rootMenu = new Menu();
 		rootMenu.setId("root");
-		rootMenu.setName(application.getInitParameter("sysname"));
-		
-		Role r1 = new Role();
-		Role r2 = new Role();
-		r1.setId("123");
-		r2.setId("456");
-		List<Role> list = new ArrayList<Role>();
-		list.add(r1);
-		list.add(r2);
-		
-		menuManageService.getMenuTree(rootMenu.getId(), list);
-		return "managePage";
+		rootMenu.setName((String) application.getAttribute("sysname"));
+		rootMenu.setType(Menu.MENUTYPE_PARENT);
+		rootMenu.setRemark("系统菜单根对象");
+		return rootMenu;
+	}
+	
+	/*
+	 * 返回json格式数据时，会将类中所有的get方法所对应的属性进行json化，可以在get方法上加@JSON(serialize=false)来阻止序列化
+	 * 因此在写属性的get/set方法时，对不需要的方法就不要写，影响效率。（如果menuManageService拥有get/set方法，那么在返回Json
+	 * 格式的数据时，它会被实例化。）
+	 */
+//	private String test;
+//	@JSON(serialize=false)
+//	public String getTest() {
+//		return "test2";
+//	}
+	
+	public Menu getMenuTree() {
+		return menuTree;
+	}
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+	public Menu getMenu() {
+		return menu;
+	}
+	public Menu getParentMenu() {
+		return parentMenu;
+	}
+	public List<Menu> getSubMenuList() {
+		return subMenuList;
+	}
+	public List<Action> getNormalActionList() {
+		return normalActionList;
+	}
+	public List<Action> getAuthorActionList() {
+		return authorActionList;
+	}
+	public List<MenuType> getMenuTypeList() {
+		return menuTypeList;
 	}
 }

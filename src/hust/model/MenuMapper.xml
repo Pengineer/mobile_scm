@@ -17,7 +17,10 @@
 	<select id="list" parameterType="map" resultMap="menuMapper">
 		select * from t_menu m
 		<where>
-			<if test="pid != null">and c_parent_id=#{pid}</if>
+			<if test="menu!=null">
+				<if test="menu.id != null">and c_id=#{menu.id}</if>
+				<if test="menu.pid != null">and c_parent_id=#{menu.pid}</if>
+			</if>
 			<if test="roleList != null">
 				and exists(select c_id from t_role_menu rm where rm.c_menu_id=m.c_id and rm.c_role_id in
 				<foreach collection="roleList" open="(" close=")" separator="," item="role">
@@ -26,6 +29,7 @@
 				)
 			</if>
 		</where>
+		order by c_order
 	</select>
 
 </mapper>

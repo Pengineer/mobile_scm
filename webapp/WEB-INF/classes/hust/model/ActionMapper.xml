@@ -12,4 +12,14 @@
 		<result property="remark" column="c_remark"/>
 	</resultMap>
 	
+	<select id="list" parameterType="map" resultMap="actionMapper">
+		select * from t_action
+		<where>
+			<if test="action !=null">
+				<if test="action.mid != null">and c_menu_id=#{action.mid}</if>
+				<if test="action.type != null">and c_type=#{action.type}</if>
+			</if>
+		</where>
+	</select>
+	
 </mapper>

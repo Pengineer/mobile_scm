@@ -5,9 +5,12 @@
 
 <struts>
 
-	<package name="dev" namespace="/dev" extends="struts-default">
+	<package name="dev" namespace="/dev" extends="json-default">
 		<action name="menuManage_*" class="menuManagerAction" method="{1}">
 			<result name="managePage">/jsp/dev/menu_manage.jsp</result>
+			<result name="menuTree" type="json"></result>
+			<result name="menuDetail">/jsp/dev/menu_detail.jsp</result>
+			<result name="addMenuPage">/jsp/dev/menu_add.jsp</result>
 		</action>
 	</package>
 	

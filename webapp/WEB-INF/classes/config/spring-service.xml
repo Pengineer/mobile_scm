@@ -8,4 +8,6 @@
 	<bean id="userLoginService" class="hust.service.impl.UserLoginServiceImpl" />
 
 	<bean id="menuManageService" class="hust.service.impl.MenuManageServiceImpl" />
+
+	<bean id="actionService" class="hust.service.impl.ActionServiceImpl" />
 </beans>

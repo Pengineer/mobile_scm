@@ -157,4 +157,79 @@ var Cookie = {
          return unescape(val);
      }
  },
- 
+};
+
+//=========================================================================
+//Object操作工具
+//=========================================================================
+var ObjUtils = {
+ /**
+  * 值字段深度复制
+  */
+ deepClone: function(o){
+     var isSimpleVal = function(val){
+         if (typeof(val) === "string" || typeof(val) === "number" || typeof(val) == "boolean") {
+             return true;
+         } else {
+             return false;
+         }
+     };
+     
+     var isArray = function(o){
+         if (o instanceof Array) {
+             return true;
+         } else {
+             return false;
+         }
+     };
+     
+     var isObject = function(o){
+         if (typeof(o) === "object") {
+             return true;
+         } else {
+             return false;
+         }
+     };
+     
+     var cloneArray = function(o){
+         if (!o) {
+             return null;
+         }
+         
+         var ret = [];
+         for (var i = 0; i < o.length; i++) {
+             if (isSimpleVal(o[i])) {
+                 ret.push(o[i]);
+             } else if (isObject(o[i])) {
+                 ret.push(cloneObj(o[i]));
+             }
+         }
+         return ret;
+     };
+     
+     var cloneObj = function(o){
+         if (!o) {
+             return null;
+         }
+         
+         var ret = {};
+         for (var prop in o) {
+             var val = o[prop];
+             if (isArray(val)) {
+                 ret[prop] = cloneArray(val);
+             } else if (isSimpleVal(val)) {
+                 ret[prop] = val;
+             } else if (isObject(val)) {
+                 ret[prop] = cloneObj(val);
+             }
+         }
+         return ret;
+     };
+     
+     if (isArray(o)) {
+         return cloneArray(o);
+     } else {
+         return cloneObj(o);
+     }
+ }
+}

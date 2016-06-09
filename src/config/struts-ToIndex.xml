@@ -5,7 +5,7 @@
 
 <struts>
 
-	<package name="toIndex" namespace="/" extends="struts-default">
+	<package name="toIndex" namespace="/" extends="json-default">
 		<action name="toIndex" class="toIndexAction" method="execute">
 			<result>/jsp/toIndex.jsp</result>
 		</action>

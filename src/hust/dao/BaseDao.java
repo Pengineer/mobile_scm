@@ -62,7 +62,7 @@ public class BaseDao<T> {
 	public List<T> list(String sqlId, Map<String,Object> params) {
 		return this.getSqlSession().selectList(sqlId, params);
 	}
-
+	
 	/**
 	 * 有分页的查询
 	 */

@@ -5,7 +5,7 @@
 
 <struts>
 
-	<package name="login" namespace="/login" extends="struts-default">
+	<package name="login" namespace="/login" extends="json-default">
 		<action name="userLogin" class="userLoginAction" method="execute">
 		</action>
 		
