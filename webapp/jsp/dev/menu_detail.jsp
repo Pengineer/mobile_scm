@@ -7,6 +7,13 @@
     <title>菜单管理</title>   
     <%@ include file="/jsp/include/css.jsp" %>
     <%@ include file="/jsp/include/js.jsp" %>
+    <script type="text/javascript">
+    	$().ready(function() {
+    		if (${refreshTree}) {
+    			top.loadTree();  // 调用上一级父页面的loadTree方法
+    		}
+    	});
+    </script>
   </head>
 
   <body>

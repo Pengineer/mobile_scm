@@ -34,6 +34,8 @@ public class MenuManageAction extends BaseAction {
 	private List<Action> authorActionList;
 	private List<MenuType> menuTypeList;
 	
+	private boolean refreshTree; 
+	
 	public String init() {
 		
 		return "managePage";
@@ -89,7 +91,7 @@ public class MenuManageAction extends BaseAction {
 	// 添加子菜单
 	public String toAddSubMenu() {
 		List<Menu> retList = null;
-		if (menu.getId().equals("root")) {
+		if (menu.getId().equals("root")) { // 如果当前菜单是root根菜单
 			menu = generateRoot();
 		} else {
 			retList = menuManageService.getMenu(menu);
@@ -104,7 +106,8 @@ public class MenuManageAction extends BaseAction {
 	
 	public String addMenu() throws Exception {
 		menuManageService.addMenu(menu);
-		return "succ";
+		refreshTree = true;
+		return "addSucc";
 	}
 	
 	private Menu generateRoot() {
@@ -150,5 +153,11 @@ public class MenuManageAction extends BaseAction {
 	}
 	public List<MenuType> getMenuTypeList() {
 		return menuTypeList;
+	}
+	public boolean isRefreshTree() {
+		return refreshTree;
+	}
+	public void setRefreshTree(boolean refreshTree) {
+		this.refreshTree = refreshTree;
 	}
 }

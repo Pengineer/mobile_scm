@@ -16,7 +16,7 @@
     <table width="500" align="center" class="inputTable" style="margin-top:15px">
       <tr>
         <th>父菜单：</th>
-        <td>${menu.name}<input type="hidden" name="menu.parentId" value="${menu.id}"/></td>
+        <td>${menu.name}<input type="hidden" name="menu.pid" value="${menu.id}"/></td>
       </tr>
       <tr id="menuNameRow">
         <th>菜单名：</th>

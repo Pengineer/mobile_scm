@@ -11,6 +11,10 @@
 			<result name="menuTree" type="json"></result>
 			<result name="menuDetail">/jsp/dev/menu_detail.jsp</result>
 			<result name="addMenuPage">/jsp/dev/menu_add.jsp</result>
+			<result name="addSucc" type="redirect"> <!--因为本xml文件对大于，小于，&等符号敏感，因此加上一个CDATA说明表示其中是纯文本内容，不参与xml解析；当然也可以采用&amp或者子标签的方式处理-->
+				<![CDATA[   
+					menuManage_menuDetail.action?menu.id=${menu.pid}&refreshTree=${refreshTree}</result>
+				]]>
 		</action>
 	</package>
 	

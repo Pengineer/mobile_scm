@@ -12,6 +12,10 @@
 		<result property="remark" column="c_remark"/>
 	</resultMap>
 	
+	<select id="getActionById" resultMap="actionMapper">
+		select * from t_action where c_id=#{id}
+	</select>
+	
 	<select id="list" parameterType="map" resultMap="actionMapper">
 		select * from t_action
 		<where>
@@ -21,5 +25,10 @@
 			</if>
 		</where>
 	</select>
+	
+	<insert id="insert" parameterType="hust.model.Action">
+		insert into t_action(c_id, c_name, c_menu_id, c_remark) 
+		values (#{id}, #{name}, #{mid}, #{remark})
+	</insert>
 	
 </mapper>

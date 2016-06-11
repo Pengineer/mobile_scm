@@ -11,15 +11,15 @@
 		<result property="pid" column="c_parent_id"/>
 		<result property="order" column="c_order"/>
 		<result property="remark" column="c_remark"/>
-		<association property="action" resultMap="hust.model.Action.actionMapper" />
+		<association property="action" column="c_action_id" select="hust.model.Action.getActionById" />
 	</resultMap>
 	
 	<select id="list" parameterType="map" resultMap="menuMapper">
 		select * from t_menu m
 		<where>
 			<if test="menu!=null">
-				<if test="menu.id != null">and c_id=#{menu.id}</if>
-				<if test="menu.pid != null">and c_parent_id=#{menu.pid}</if>
+				<if test="menu.id != null">and m.c_id=#{menu.id}</if>
+				<if test="menu.pid != null">and m.c_parent_id=#{menu.pid}</if>
 			</if>
 			<if test="roleList != null">
 				and exists(select c_id from t_role_menu rm where rm.c_menu_id=m.c_id and rm.c_role_id in
@@ -29,7 +29,16 @@
 				)
 			</if>
 		</where>
-		order by c_order
+		order by m.c_order
 	</select>
+	
+	<select id="getMaxOrder" parameterType="string" resultType="int">
+		select max(c_order) from t_menu;
+	</select>
+	
+	<insert id="insert" parameterType="hust.model.Menu">
+		insert into t_menu(c_id, c_name, c_type, c_parent_id, c_order, c_remark, c_action_id)
+		values(#{id}, #{name}, #{type}, #{pid}, #{order}, #{remark}, #{action.id})
+	</insert>
 
 </mapper>

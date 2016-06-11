@@ -29,7 +29,7 @@
 	
 	<!-- 配置基于注解的事物aop，proxy-target-class="true"表示事务基于CGLIB实现（如果不加此属性表示基于Java动态代理动态代理的事务注解可以配置在接口上）。  
 		  彻底废弃基于拦截器的事务管理-->
-	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>  
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>  
 	
 	<!-- 配置myBatis文件：整合Mybatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

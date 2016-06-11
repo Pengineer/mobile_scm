@@ -1,10 +1,12 @@
 package hust.service.impl;
 
 import hust.dao.BaseDao;
+import hust.model.Action;
 import hust.model.Menu;
 import hust.model.MenuType;
 import hust.model.Role;
 import hust.service.MenuManageService;
+import hust.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 public class MenuManageServiceImpl implements MenuManageService {
@@ -40,14 +46,12 @@ public class MenuManageServiceImpl implements MenuManageService {
 		return menuList;
 	}
 
-	@Override
 	public List<Menu> getMenu(Menu menu) {
 		Map<String, Object> paraMap = new HashMap<String, Object>();
 		paraMap.put("menu", menu);  // 这也是为什么将menu作为对象传入，而不是传入具体的字段的原因，如果传入的是具体的字段，这里的getMenu方法就不能通用了。
 		return baseDao.list(Menu.class.getName() + ".list", paraMap);
 	}
 
-	@Override
 	public List<MenuType> getMenuTypeList() {
 		List<MenuType> retList = new ArrayList<MenuType>();
 		retList.add(new MenuType(Menu.MENUTYPE_PARENT, "有子菜单"));
@@ -56,9 +60,34 @@ public class MenuManageServiceImpl implements MenuManageService {
 		return retList;
 	}
 
-	@Override
+	@Transactional
 	public void addMenu(Menu menu) {
-		
+		if (menu.getId() == null) {
+			menu.setId(StringUtils.uniqueKey());
+		}
+		if (menu.getType() == Menu.MENUTYPE_LINE) {
+			menu.setName("-- 分割线 --");
+		}
+		Action action = menu.getAction();
+		if (action == null) {
+			action = new Action();
+			menu.setAction(action);
+		}
+		if (menu.getType() == Menu.MENUTYPE_NODE) {
+			action.setId(StringUtils.uniqueKey());
+			action.setType(Action.ACTIONTYPE_NORMAL);
+			action.setMid(menu.getId());
+			action.setRemark("菜单所属动作");
+			baseDao.add(action);
+		} else {
+			action.setId(null);
+		}
+		// sort order
+		if (menu.getOrder() == null) {
+			Integer max = (Integer) baseDao.getByUnique(Menu.class.getName() + ".getMaxOrder", menu.getPid());
+			menu.setOrder(max == null ? 1 : max + 1);
+		}
+		baseDao.add(menu);
 	}
 	
 }
