@@ -138,6 +138,7 @@ public class MenuManageAction extends BaseAction {
 	
 	public String delMenu() {
 		menuManageService.delMenu(menu.getId(), menu.getType());
+		refreshTree = true;
 		return "addSucc";
 	}
 	

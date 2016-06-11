@@ -40,7 +40,7 @@
 		where c_id = #{id}
 	</update>
 	
-	<delete id="delete" rameterType="hust.model.Action">
+	<delete id="delete" parameterType="hust.model.Action">
 		delete from t_action
 		<where>
 			<if test="id !=null">c_id=#{id},</if>

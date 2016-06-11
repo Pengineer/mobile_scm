@@ -5,6 +5,6 @@
 
 <mapper namespace="hust.model.RoleMenu">
 	<delete id="deleteByMenuId" parameterType="string">
-		delete from t_role_menu where c_menu_id={mid}
+		delete from t_role_menu where c_menu_id=#{mid}
 	</delete>
 </mapper>

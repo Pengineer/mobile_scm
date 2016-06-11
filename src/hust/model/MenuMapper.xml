@@ -52,6 +52,6 @@
 	</update>
 
 	<delete id="deleteById" parameterType="string">
-		delete from t_menu where id = #{id}
+		delete from t_menu where c_id = #{id}
 	</delete>
 </mapper>
