@@ -40,5 +40,18 @@
 		insert into t_menu(c_id, c_name, c_type, c_parent_id, c_order, c_remark, c_action_id)
 		values(#{id}, #{name}, #{type}, #{pid}, #{order}, #{remark}, #{action.id})
 	</insert>
+	
+	<update id="update" parameterType="hust.model.Menu">
+		update t_menu
+		<set>
+			<if test="name != null">c_name = #{name},</if>
+			<if test="remark != null">c_remark = #{remark},</if>
+			<if test="order != null">c_order = #{order},</if>
+		</set>
+		where c_id = #{id}
+	</update>
 
+	<delete id="deleteById" parameterType="string">
+		delete from t_menu where id = #{id}
+	</delete>
 </mapper>

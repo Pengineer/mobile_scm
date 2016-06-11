@@ -19,32 +19,43 @@ public class BaseDao<T> {
 		this.getSqlSession().insert(obj.getClass().getName() + ".insert", obj);
 	}
 	
-	public void delete(Class<T> clazz, String id) {
-		this.getSqlSession().delete(clazz.getName() + ".delete", id);
+	public void delete(Class<T> clazz, T t) {
+		this.getSqlSession().delete(clazz.getName() + ".delete", t);
+	}
+	
+	public void deleteById(Class<T> clazz, String id) {
+		this.getSqlSession().delete(clazz.getName() + ".deleteById", id);
+	}
+	
+	/**
+	 * 不单独根据id删除
+	 */
+	public void delete(String sql, Object object) {
+		this.getSqlSession().delete(sql, object);
 	}
 
 	public void modify(T obj) {
 		this.getSqlSession().update(obj.getClass().getName() + ".update", obj);
 	}
 	
-	/**
-	 * 根据Id查找
-	 */
-	public T getById(Class<T> clazz, String id) {
-		return this.getSqlSession().selectOne(clazz.getName() + ".getById", id);
-	}
+//	/**
+//	 * 根据Id查找
+//	 */
+//	public T getById(Class<T> clazz, String id) {
+//		return this.getSqlSession().selectOne(clazz.getName() + ".getById", id);
+//	}
 
-	/**
-	 * 根据指定的多个条件获取一条记录
-	 */
-	public T getByConditions(String sqlId, Map<String,Object> params) {
-		return this.getSqlSession().selectOne(sqlId, params);
-	}
+//	/**
+//	 * 根据指定的多个条件获取一条记录------------?????和下面的一个重复
+//	 */
+//	public T getByConditions(String sqlId, Map<String,Object> params) {
+//		return this.getSqlSession().selectOne(sqlId, params);
+//	}
 
 	/**
 	 * 根据指定的一个条件获取一条记录（前提是该条件在表中具有唯一性）
 	 */
-	public T getByUnique(String sqlId, Object param) {
+	public T selectOne(String sqlId, Object param) {
 		return this.getSqlSession().selectOne(sqlId, param);
 	}
 

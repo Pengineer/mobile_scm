@@ -20,6 +20,7 @@
 		select * from t_action
 		<where>
 			<if test="action !=null">
+				<if test="action.id != null">and c_id=#{action.id}</if>
 				<if test="action.mid != null">and c_menu_id=#{action.mid}</if>
 				<if test="action.type != null">and c_type=#{action.type}</if>
 			</if>
@@ -30,5 +31,31 @@
 		insert into t_action(c_id, c_name, c_menu_id, c_remark) 
 		values (#{id}, #{name}, #{mid}, #{remark})
 	</insert>
+	
+	<update id="update" parameterType="hust.model.Action">
+		update t_action
+		set c_name=#{name}
+		<if test="remark != null">, c_remark={remark}</if>
+		<if test="type != null">, c_type={type}</if>
+		where c_id = #{id}
+	</update>
+	
+	<delete id="delete" rameterType="hust.model.Action">
+		delete from t_action
+		<where>
+			<if test="id !=null">c_id=#{id},</if>
+			<if test="name !=null">c_name=#{name},</if>
+			<if test="mid !=null">c_menu_id=#{mid},</if>
+			<if test="remark !=null">c_remark=#{remark},</if>
+		</where>
+	</delete>
+	
+	<delete id="deleteByList">
+		delete from t_action
+		where c_id in
+		<foreach collection="list" open="(" close=")" separator="," item="action">
+			#{action.id}
+		</foreach>
+	</delete>
 	
 </mapper>

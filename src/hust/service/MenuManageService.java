@@ -1,5 +1,6 @@
 package hust.service;
 
+import hust.model.Action;
 import hust.model.Menu;
 import hust.model.MenuType;
 import hust.model.Role;
@@ -21,4 +22,16 @@ public interface MenuManageService {
 	public List<MenuType> getMenuTypeList();
 
 	public void addMenu(Menu menu);
+
+	public void editMenu(Menu menu);
+
+	public void delMenu(String id, Integer type);
+
+	public void delAction(Action action);
+
+	public void moveMenu(Menu menu, int i);
+
+	public void addAction(Action action);
+
+	public void editAction(Action action);
 }
