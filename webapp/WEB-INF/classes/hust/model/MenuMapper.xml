@@ -36,6 +36,14 @@
 		select max(c_order) from t_menu;
 	</select>
 	
+	<select id="getNeibMenu" parameterType="map" resultMap="hust.model.Menu.menuMapper">   <!-- $取出来的没有引号，类似sql的拼接，#取出来的类似ps的set赋值 -->
+		select * 
+		from t_menu 
+		where c_parent_id=#{pid} and c_order=(
+		      select ${func}(c_order) from t_menu where c_parent_id=#{pid} and c_order ${symbol} #{order}
+		      )
+	</select>
+	
 	<insert id="insert" parameterType="hust.model.Menu">
 		insert into t_menu(c_id, c_name, c_type, c_parent_id, c_order, c_remark, c_action_id)
 		values(#{id}, #{name}, #{type}, #{pid}, #{order}, #{remark}, #{action.id})

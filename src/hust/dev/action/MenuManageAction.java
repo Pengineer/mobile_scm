@@ -142,6 +142,20 @@ public class MenuManageAction extends BaseAction {
 		return "addSucc";
 	}
 	
+	public String upMenu() {
+		menu = menuManageService.getMenu(menu).get(0);
+		menuManageService.moveMenu(menu, -1);
+		refreshTree = true;
+		return "addSucc";
+	}
+	
+	public String downMenu() {
+		menu = menuManageService.getMenu(menu).get(0);
+		menuManageService.moveMenu(menu, 1);
+		refreshTree = true;
+		return "addSucc";
+	}
+	
 	// 因为数据库中本身是不存在root这样的记录
 	private Menu generateRoot() {
 		Menu rootMenu = new Menu();

@@ -142,20 +142,20 @@ public class MenuManageServiceImpl implements MenuManageService {
 	@Transactional
 	public void moveMenu(Menu menu, int i) {
 		Map<String, Object> paraMap = new HashMap<String, Object>();
-		paraMap.put("parentId", menu.getPid());
-		paraMap.put("sortOrder", menu.getOrder());
+		paraMap.put("pid", menu.getPid());
+		paraMap.put("order", menu.getOrder());
 		
 		Menu neibMenu = null;
 		if (i == 1) {
 			// 找到相邻的下一个菜单
-			paraMap.put("fun", "min");
+			paraMap.put("func", "min");
 			paraMap.put("symbol", ">");
-			neibMenu = (Menu) baseDao.list("menu.getNeibMenu", paraMap);
+			neibMenu = (Menu) baseDao.selectOne(Menu.class.getName() + ".getNeibMenu", paraMap);
 		} else if (i == -1) {
 			// 找到相邻的上一个菜单
-			paraMap.put("fun", "max");
+			paraMap.put("func", "max");
 			paraMap.put("symbol", "<");
-			neibMenu = (Menu) baseDao.list("menu.getNeibMenu", paraMap);
+			neibMenu = (Menu) baseDao.selectOne(Menu.class.getName() + ".getNeibMenu", paraMap);
 		}
 
 		if (neibMenu != null) { // 有相邻菜单交换order
